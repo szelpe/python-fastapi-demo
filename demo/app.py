@@ -4,18 +4,10 @@ from fastapi.templating import Jinja2Templates
 from psycopg import connect
 from typing import Optional, List
 from Product import Product
+from config import DB_CONFIG
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
-
-# PostgreSQL connection details
-DB_CONFIG = {
-    "dbname": "devops_for_execs",
-    "user": "postgres",
-    "password": "",
-    "host": "localhost",
-    "port": 5432
-}
 
 # Load products from PostgreSQL
 def load_products_from_db():
