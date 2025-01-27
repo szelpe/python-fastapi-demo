@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product List</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-6">
+    <h1 class="text-3xl font-bold text-center mb-8">Product List</h1>
+    
+    <div class="container mx-auto mb-6">
+        <form method="GET" class="flex justify-center">
+            <input type="text" name="s" value="{{ search_query }}" placeholder="Search by name" class="border rounded-lg p-2 w-1/4 mr-2"/>
+            <input type="number" name="min_price" value="{{ min_price }}" placeholder="Min Price" class="border rounded-lg p-2 w-1/6 mr-2"/>
+            <input type="number" name="max_price" value="{{ max_price }}" placeholder="Max Price" class="border rounded-lg p-2 w-1/6 mr-2"/>
+            <select name="sort_by" class="border rounded-lg p-2 w-1/6 mr-2">
+                <option value="name"  {% if sort_by == "name" %} selected {% endif %}>Sort by Name</option>
+                <option value="price" {% if sort_by == "price" %} selected {% endif %} >Sort by Price</option>
+                <option value="stock" {% if sort_by == "stock" %} selected {% endif %}>Sort by Stock</option>
+            </select>
+            <button type="submit" class="bg-blue-500 text-white p-2 rounded-lg">Filter</button>
+        </form>
+    </div>
+    
+    <div class="container mx-auto">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {% for product in products %}
+            <div class="bg-white shadow-lg rounded-lg p-4">
+                <h2 class="text-xl font-semibold mb-2">{{ product.name }}</h2>
+                <p class="text-sm text-gray-500 mb-4">{{ product.brand }}</p>
+                {% if product.is_in_stock() %}
+                <p class="text-green-500">In Stock</p>
+                {% else %}
+                <p class="text-red-500">Out of Stock</p>
+                {% endif %}
+                <p class="mb-2">Price: ${{ product.price }}</p>
+                <a href="{{ url_for('product_detail', sku=product.sku) }}" class="text-blue-500 hover:text-blue-700 font-medium">View Details</a>
+            </div>
+            {% else %}
+            <p class="text-center text-gray-500 col-span-full">No products found</p>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
