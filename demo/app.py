@@ -14,7 +14,10 @@ def load_products_from_db():
     products = []
     with connect(**DB_CONFIG) as conn:
         with conn.cursor() as cur:
-            cur.execute("SELECT sku, name, brand, description, specs, price, avg_score, stock, weight, size, location FROM product")
+            cur.execute("""
+                        SELECT sku, name, brand, description, specs, price, avg_score, stock, weight, size, location
+                        FROM product
+                        """)
             
             if not cur.description:
                 return []
