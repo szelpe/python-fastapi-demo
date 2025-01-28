@@ -75,4 +75,5 @@ jobs:
         with:
           app-name: 'pythondemo'
           slot-name: 'Production'
+          package: './demo'
           
