@@ -45,6 +45,7 @@ jobs:
 
       - name: Publish test results to GitHub UI
         uses: dorny/test-reporter@v1
+        if: always()
         with:
           name: PyTest Results
           path: reports/test-results.xml
