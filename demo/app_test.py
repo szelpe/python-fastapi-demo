@@ -1,3 +1,4 @@
+from assertpy import assert_that
 import pytest
 from app import filter_products, sort_products
 from Product import Product
@@ -8,8 +9,11 @@ def test_filter_products_by_name():
         Product(sku="2", name="Laptop", brand="BrandB", description="Desc", specs="Specs", price=1000, avg_score=4.7, stock=5, weight=2.5, size="15x10", location="B2"),
     ]
     filtered = filter_products(products, query="Phone")
-    assert len(filtered) == 2
-    assert filtered[0].name == "Phone"
+    # assert len(filtered) == 2
+    # assert filtered[0].name == "Phone"
+    assert_that(filtered).is_length(2)
+    assert_that(filtered[0].name).is_equal_to("Phone")
+
 
 def test_filter_products_by_price_range():
     products = [
