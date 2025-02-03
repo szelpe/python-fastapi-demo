@@ -38,7 +38,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: test-results
-          path: demo/reports/test-results.xml
+          path: reports/test-results.xml
 
       - name: Zip artifact for deployment
         run: zip release.zip demo/* -r
