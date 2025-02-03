@@ -40,6 +40,14 @@ jobs:
           name: test-results
           path: reports/test-results.xml
 
+      - name: Publish test results to GitHub UI
+        uses: dorny/test-reporter@v1
+        with:
+          name: PyTest Results
+          path: reports/test-results.xml
+          reporter: java-junit
+  
+
       - name: Zip artifact for deployment
         run: zip release.zip demo/* -r
 
