@@ -1,5 +1,4 @@
 from assertpy import assert_that
-import pytest
 from app import filter_products, sort_products
 from Product import Product
 
