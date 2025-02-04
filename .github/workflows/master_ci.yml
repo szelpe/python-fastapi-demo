@@ -70,3 +70,33 @@ jobs:
           path: |
             release.zip
             !venv/
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    environment:
+      name: 'Production'
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+    permissions:
+      id-token: write #This is required for requesting the JWT
+    steps:
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v4
+        with:
+          name: python-app
+      - name: Unzip artifact for deployment
+        run: unzip release.zip
+      
+      - name: Login to Azure
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_F8CE0E62EB3C43AFB69ACE75628348E5 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_EF27B4986A254C349A2D63120DDD47E5 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_23E5FC07174748E3AB53B2FBC101EC66 }}
+      - name: 'Deploy to Azure Web App'
+        uses: azure/webapps-deploy@v3
+        id: deploy-to-webapp
+        with:
+          app-name: 'pydemo'
+          slot-name: 'Production'
+          package: './demo'
