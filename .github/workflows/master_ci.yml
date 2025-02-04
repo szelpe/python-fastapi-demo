@@ -32,7 +32,13 @@ jobs:
 
       - name: Run tests
         run: |
-          pytest demo/
+          pytest demo/ --junitxml=reports/test-results.xml
+
+      - name: Upload artifact for test report
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: reports/test-results.xml
 
       - name: Zip artifact for deployment
         run: zip release.zip demo/* -r
