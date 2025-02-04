@@ -30,6 +30,10 @@ jobs:
       - name: Install dependencies
         run: pip install -r demo/requirements.txt
 
+      - name: Run tests
+        run: |
+          pytest demo/
+
       - name: Zip artifact for deployment
         run: zip release.zip demo/* -r
 
