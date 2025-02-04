@@ -103,3 +103,11 @@ jobs:
           app-name: 'pydemo'
           slot-name: 'Production'
           package: './demo'
+      - name: Send Teams Notification on Failure
+        if: failure()
+        uses: worktile/msteams-notification@v1
+        with:
+          webhook_url: ${{ secrets.TEAMS_WEBHOOK_URL }}
+          title: "🚨 Deployment Failed"
+          text: "❌ Deployment of `${{ github.repository }}` failed on `${{ github.ref }}`.\nCheck logs: [GitHub Actions](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})"
+  
