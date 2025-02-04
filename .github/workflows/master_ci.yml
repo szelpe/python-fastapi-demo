@@ -32,7 +32,11 @@ jobs:
       
       - name: Install dependencies
         run: pip install -r demo/requirements.txt
-        
+      
+      - name: Run static code analysis (flake8)
+        run: |
+          flake8 demo/ --count --show-source --statistics
+
       - name: Run tests and generate report
         run: |
           pytest demo/ --junitxml=reports/test-results.xml
