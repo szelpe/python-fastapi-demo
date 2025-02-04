@@ -36,6 +36,7 @@ jobs:
 
       - name: Upload artifact for test report
         uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: test-results
           path: reports/test-results.xml
