@@ -8,7 +8,7 @@ def test_filter_products_by_name():
         Product(sku="2", name="Laptop", brand="BrandB", description="Desc", specs="Specs", price=1000, avg_score=4.7, stock=5, weight=2.5, size="15x10", location="B2"),
     ]
     filtered = filter_products(products, query="Phone")
-    assert len(filtered) == 2
+    assert len(filtered) == 1
     assert filtered[0].name == "Phone"
 
 def test_filter_products_by_price_range():
