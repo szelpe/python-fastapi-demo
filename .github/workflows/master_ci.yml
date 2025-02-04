@@ -33,6 +33,10 @@ jobs:
       - name: Install dependencies
         run: pip install -r demo/requirements.txt
       
+      - name: Run type checker (pyright)
+        run: |
+          pyright demo/
+
       - name: Run static code analysis (flake8)
         run: |
           flake8 demo/ --count --show-source --statistics
