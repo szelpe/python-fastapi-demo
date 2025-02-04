@@ -13,6 +13,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      checks: write
+      contents: read
 
     steps:
       - uses: actions/checkout@v4
@@ -40,6 +43,14 @@ jobs:
         with:
           name: test-results
           path: reports/test-results.xml
+
+      - name: Publish test results to GitHub UI
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: PyTest Results
+          path: reports/test-results.xml
+          reporter: java-junit
 
       - name: Zip artifact for deployment
         run: zip release.zip demo/* -r
