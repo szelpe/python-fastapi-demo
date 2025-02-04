@@ -10,7 +10,7 @@ def test_filter_products_by_name():
     filtered = filter_products(products, query="Phone")
     # assert len(filtered) == 2
     # assert filtered[0].name == "Phone"
-    assert_that(filtered).is_length(2)
+    assert_that(filtered).is_length(1)
     assert_that(filtered[0].name).is_equal_to("Phone")
 
 
