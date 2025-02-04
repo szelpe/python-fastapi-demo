@@ -9,6 +9,7 @@ from config import DB_CONFIG
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
 
+
 # Load products from PostgreSQL
 def load_products_from_db():
     products = []
