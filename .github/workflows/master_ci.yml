@@ -50,6 +50,7 @@ jobs:
         with:
           name: test-results
           path: reports/test-results.xml
+          retention_days: 7
 
       - name: Publish test results to GitHub UI
         uses: dorny/test-reporter@v1
