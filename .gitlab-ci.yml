@@ -1,0 +1,45 @@
+image: python:3.12
+
+variables:
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.pip-cache"
+
+cache:
+  paths:
+    - .pip-cache/
+    - venv/
+
+stages:
+  - test
+  - build
+
+before_script:
+  - python -m venv venv
+  - source venv/bin/activate
+  - pip install -r demo/requirements.txt
+
+type_check:
+  stage: test
+  script:
+    - pyright demo/
+  artifacts:
+    reports:
+      junit: reports/test-results.xml
+    when: always
+
+test:
+  stage: test
+  script:
+    - pytest demo/ --junitxml=reports/test-results.xml
+  artifacts:
+    reports:
+      junit: reports/test-results.xml
+    when: always
+
+build:
+  stage: build
+  script:
+    - zip -r release.zip demo/*
+  artifacts:
+    paths:
+      - release.zip
+    expire_in: 1 week
